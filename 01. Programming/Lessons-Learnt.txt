@@ -1,0 +1,29 @@
+
+D/M/Y: 4/4/2026
+   1. std::string can be used to print repetitive symbols as opposed to using a loop.
+
+   2. A Task List gives you ultimate freedom, at the cost of memory and speed.
+      Best for dynamic plugins, undo/redo systems, or multi-threaded schedulers.
+
+   3. Merging literals ("A" "B") is faster than multiple cout calls, 
+      though negligibel in practice. For real performance, avoid std::endl:
+      It forces a slow buffer flush. Use '\n' instead.
+
+   4. Early Returns reduce cognitive load for you and the compiler.
+      Though exiting once you have your answer might not be the best option.
+      When to avoid? When you need "Atomic Transactions" 
+      (where multiple steps must succeed or fail together) 
+      or data aggregation or filtering (building a result over time).
+
+   5. std::cin is "greedy"—it grabs numbers and leaves "trash"  
+      in the input buffer to break your next read.
+      Fixed using getline to grab the whole line and std::stod to parse it.
+
+How I learn:
+   1. Get Source Code from GitHub
+   2. Refactor the Code, Artificially
+   3. Analyse the structure of the code
+   4. Compare with previous version
+   5. Create an Implementation Plan
+   6. Create a Progression System, Artificially
+   7. Implement the Progressions (10-15 files.)
