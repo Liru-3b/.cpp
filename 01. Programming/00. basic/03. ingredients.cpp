@@ -1,13 +1,6 @@
-//*****************************************************************************************************
-//      Chocolate Chip Cookies Recipe - Scaling Ingredients
-//      This program is a simple recipe for making Chocolate  
-//      Chip Cookies that can be scaled to any number of dozens.
-//*****************************************************************************************************
 
 #include <iostream>
 using namespace std;
-
-//*****************************************************************************************************
 
 int main() {
     const int EGG = 2, 
@@ -56,39 +49,3 @@ int main() {
 
     return 0;
 }
-
-//*****************************************************************************************************
-/*
-
-Chocolate Chip Cookies - 4 dozen cookies
-
-        1 cup butter
-        1.5 cups white sugar
-        2 eggs
-        2 tsp vanilla extract
-        2 cups all-purpose flour
-        0.75 baking soda
-        0.25 tsp salt
-        2 cups chocolate chips
-
-Preheat oven to 350 F. In a large bowl, mix butter, sugar, eggs, and vanilla
-until light and fluffy. In a separate bowl, combine flour, baking soda, and
-salt; stir into the butter mixture until well-blended stir in chocolate chips.
-Drop by rounded teaspoons onto ungreased cookie sheets. Bake 8-10 minutes until
-just set. Cool slightly on cookie sheets before transferring to cooling racks
-to cool completely.
-
-How many dozens are you planning to make (Please give a multiple of four)?
-8
-
-
-        2 cup butter
-        3 cups white sugar
-        4 eggs
-        4 tsp vanilla extract
-        4 cups all-purpose flour
-        1.5 baking soda
-        0.5 tsp salt
-        4 cups chocolate chips
-
-*/

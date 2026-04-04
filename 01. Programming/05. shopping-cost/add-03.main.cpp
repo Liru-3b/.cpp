@@ -10,36 +10,44 @@ Improvement:
 #include <iomanip>
 #include <iostream>
 
-double gsc(double w);
-double gvi(std::string_view l);
+double getshippingcost(double itemWeight);
+
+/*I made the Improvement Here*/
+double getValidInput(std::string_view promptLabel);
 
 int main() {
-    double p = gvi("Price: ");
-    double w = gvi("Weight: ");
+    double itemPrice = getValidInput("Price: ");
+    double itemWeight = getValidInput("Weight: ");
 
-    const double TR = 0.0343;
-    double t = TR * p;
-    double s = gsc(w);
-    double c = p + t + s;
+    const double TAX_RATE = 0.0343;
+    double itemTax = TAX_RATE * itemPrice;
+    double itemShippingCost = getshippingcost(itemWeight);
+    double itemTotalCost = itemPrice + itemTax + itemShippingCost;
 
     return 0;}
 
-double gsc(double w) {
-    double r;
+double getshippingcost(double itemWeight) {
+    double WeightRate;
 
-    if (w < 1) r = 10.0;
-    //   ...
-    else r = 1.0;
-    return w * r;}
+    if (itemWeight < 1) WeightRate = 10.0;
+    else if (itemWeight < 4) WeightRate = 8.0;
+    else if (itemWeight < 8) WeightRate = 6.0;
+    else if (itemWeight < 12) WeightRate = 4.5;
+    else if (itemWeight < 16) WeightRate = 3.0;
+    else if (itemWeight < 20) WeightRate = 2.0;
+    else WeightRate = 1.0;
 
-double gvi(std::string_view l) {
-    double v;
+    return itemWeight * WeightRate;}
+
+/*I also made the Improvement Here*/
+double getValidInput(std::string_view promptLabel) {
+    double validInput;
     do {
-        std::cout << l;
-        if (!(std::cin >> v) || v < 0) {
+        std::cout << promptLabel;
+        if (!(std::cin >> validInput) || validInput < 0) {
             std::cout << "\033[A\033[2K" "msg\n";
             std::cin.clear();
             std::cin.ignore(1000, '\n');
-            v = -1;}
-    } while (v < 0);
-    return v;}
+            validInput = -1;}
+    } while (validInput < 0);
+    return validInput;}

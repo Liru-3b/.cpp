@@ -1,7 +1,3 @@
-//*****************************************************************************************************
-//      Computer Programming I Grade Calculator
-//      This program is a simple grade calculator for a Computer Programming I class.
-//*****************************************************************************************************
 
 #include <string>
 #include <iomanip>
@@ -41,8 +37,6 @@ int main() {
 
     std::cout << "\nFinal Numeric Grade: " << finalNumericGrade << "%";
     std::cout << "\nLetter Grade:        " << getLetterGrade(finalNumericGrade) << std::endl;
-
-    return 0;
 }
 
 // Helper function to handle input and basic validation
@@ -53,8 +47,7 @@ double getValidScore(const std::string& category) {
 
     double score; 
     cin >> score;
-    return score;
-}
+    return score;}
 
 // Logic for determining letter grade
 std::string getLetterGrade(double score) {
@@ -68,7 +61,4 @@ std::string getLetterGrade(double score) {
     if (score >= 74) return "C";
     if (score >= 70) return "C-";
     if (score >= 60) return "D";
-    return "F";
-}
-
-//*****************************************************************************************************
+    return "F";}
