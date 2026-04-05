@@ -50,13 +50,14 @@ double getValidatedInput(std::string_view promptLabel) {
         if(!std::getline(std::cin, input)) return -1; /*Early Return*/
         
         try {
-            size_t pos; bool isClean = false;
+            size_t pos; bool isTrash = false;
             double val = std::stod(input, &pos);
             
             for (size_t i = pos; i < input.length(); ++i) {
                 if (!std::isspace(static_cast<unsigned char>(
-                    input[i]))) {isClean = true; break;}} 
-            if (!isClean && val > 0) /*Early Return*/return val;} 
+                    input[i]))) {isTrash = true; break;}} 
+                    
+            if (!isTrash && val > 0) /*Early Return*/return val;} 
 
         catch(...) {} std::cout << "\033[A\033[2K" "msg\n";
     }}
