@@ -1,7 +1,6 @@
-
 /*
 Improvement:
-    Creating a dedicated function to handle the output:
+    Creating a dedicated function to handle the output
 */
 
 #include <string>
@@ -16,16 +15,14 @@ struct ShippingConfig {
     static constexpr double TAX_RATE_UNDER_8KG = 10.0;
     static constexpr double TAX_RATE_UNDER_16KG = 7.5;
     static constexpr double TAX_RATE_UNDER_32KG = 5.0;
-    static constexpr double DEFAULT_RATE = 2.5;};
+    static constexpr double DEFAULT_RATE = 2.5;
+};
 
 struct Receipt {
-    double
-    itemTax,
-    itemPrice,
-    itemWeight,
-    shippingCost, 
-    final_itemCost;};
+    double itemTax, itemPrice, itemWeight, shippingCost, final_itemCost;
+};
 
+/* Created the dedicated function to handle the output Here */
 void printReceipt(const Receipt& r) {
     std::cout << std::fixed << std::setprecision(2);
     std::cout << "\n--- Invoice Summary ---"
@@ -34,7 +31,8 @@ void printReceipt(const Receipt& r) {
         << "\n  Shipping:  $" << r.shippingCost
         << "\n  ---------------------"
         << "\n  Total:     $" << r.final_itemCost 
-        << std::endl;}
+        << std::endl;
+}
 
 double getInput(std::string_view prompt);
 double getShippinFee(double weight);
@@ -49,7 +47,8 @@ int main() {
     r.shippingCost = getShippinFee(r.itemWeight);
     r.final_itemCost = r.itemPrice + r.itemTax + r.shippingCost;
     
-    printReceipt(r);}
+    printReceipt(r);
+}
 
 double getInput(std::string_view prompt) {
     std::string input;
@@ -64,12 +63,12 @@ double getInput(std::string_view prompt) {
 
             for (size_t i = pos; i < input.length(); ++i) {
                 if (!std::isspace(static_cast<unsigned char>(
-                    input[i]))) {isTrash = true; break;}
-            } if (!isTrash && val > 0) return val;
+                    input[i]))) {isTrash = true; break;}} 
+            if (!isTrash && val > 0) return val;
 
         } catch (...) {}
-        std::cout << "\033[A\033[2K" << "Invalid Input!\n";
-    }}
+        std::cout << "\033[A\033[2K" << "Invalid Input!\n";}
+}
 
 double getShippinFee(double weight) {
     if (weight < 2) weight * ShippingConfig::TAX_RATE_UNDER_2KG;
@@ -78,4 +77,5 @@ double getShippinFee(double weight) {
     if (weight < 16) weight * ShippingConfig::TAX_RATE_UNDER_16KG;
     if (weight < 32) weight * ShippingConfig::TAX_RATE_UNDER_32KG;
 
-    return weight * ShippingConfig::DEFAULT_RATE;}
+    return weight * ShippingConfig::DEFAULT_RATE;
+}

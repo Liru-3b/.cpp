@@ -1,4 +1,3 @@
-
 /*
 Improvement:
     Using std::format for clear string formating
@@ -17,15 +16,12 @@ struct ShippingConfig {
     static constexpr double RATE_UNDER_16KG = 4.0;
     static constexpr double RATE_UNDER_32KG = 3.0;
     static constexpr double RATE_UNDER_64KG = 2.0;
-    static constexpr double DEFAULT_RATE = 7.0;};
+    static constexpr double DEFAULT_RATE = 7.0;
+};
 
 struct Receipt {
-    double
-    itemPrice,
-    itemWeight,
-    itemTax,
-    shippingCost, 
-    totalCost;};
+    double itemPrice, itemWeight, itemTax, shippingCost, totalCost;
+};
 
 void PrintReceipt(const Receipt& r) {
     std::cout << std::format(
@@ -35,8 +31,8 @@ void PrintReceipt(const Receipt& r) {
         "\n  Shipping:  ${:.2f}"
         "\n  ------------------"
         "\n  Total:    ${:.2f}",
-        r.itemPrice, r.itemTax, 
-        r.shippingCost, r.totalCost);}
+        r.itemPrice, r.itemTax, r.shippingCost, r.totalCost);
+    }
 
 double getInput(std::string_view prompt);
 double shippingfee(double weight);
@@ -59,8 +55,7 @@ double getInput(std::string_view prompt) {
     
     while (true) {
         std::cout << prompt;
-        if (!std::getline(std::cin, input))
-            return -1;
+        if (!std::getline(std::cin, input)) return -1;
 
         try {
             size_t pos; bool isTrash = false;
@@ -68,14 +63,12 @@ double getInput(std::string_view prompt) {
 
             for (size_t i = pos; i < input.length(); ++i) {
                 if (!std::isspace(static_cast<unsigned char>(
-                    input[i]))) {isTrash = true; break;}
-
-            } if (!isTrash && val > 0) 
-            return val;
+                    input[i]))) {isTrash = true; break;}} 
+            if (!isTrash && val > 0) return val;
 
         } catch (...) {}
-        std::cout << "\033[A\033[2K" "msg\n";
-    }}
+        std::cout << "\033[A\033[2K" << "Error! msg\n";}
+}
 
 double shippingfee(double weight) {
     if (weight < 2) return weight * ShippingConfig::RATE_UNDER_2KG;
@@ -84,4 +77,5 @@ double shippingfee(double weight) {
     if (weight < 16) return weight * ShippingConfig::RATE_UNDER_16KG;
     if (weight < 32) return weight * ShippingConfig::RATE_UNDER_32KG;
 
-    return weight * ShippingConfig::DEFAULT_RATE;}
+    return weight * ShippingConfig::DEFAULT_RATE;
+}

@@ -1,4 +1,3 @@
-
 /*
 Improvement:
     Input Validation with Lambdas
@@ -12,6 +11,7 @@ Improvement:
 #include <functional>
 #include <string_view>
 
+/* Created a Template to Validate the Input */
 template <typename T, typename Predicate>
 T getValidatedInput(std::string_view prompt, Predicate isValid) {
     std::string input;
@@ -28,12 +28,12 @@ T getValidatedInput(std::string_view prompt, Predicate isValid) {
             
             bool isTrash = false;
             for (size_t i = pos; i < input.length(); ++i) {
-                if (!std::isspace(static_cast<unsigned char>(input[i]))) {isTrash = true; break;}}
+                if (!std::isspace(static_cast<unsigned char>(input[i]))
+                    ) {isTrash = true; break;}}
 
             if (!isTrash && isValid(val)) return val;
         } catch (...) {}
-        std::cout << "\033[A\033[2K" << "msg\n";
-    }
+        std::cout << "\033[A\033[2K" << "Error! msg\n";}
 }
 
 struct ShippingConfig {
@@ -46,12 +46,8 @@ struct ShippingConfig {
     static constexpr double DEFAULT_RATE = 7.0;};
 
 struct Receipt {
-    double
-    itemPrice,
-    itemWeight,
-    itemTax,
-    shippingCost, 
-    totalCost;};
+    double itemPrice, itemWeight, itemTax, shippingCost, totalCost;
+};
 
 void PrintReceipt(const Receipt& r) {
     std::cout << std::format(
@@ -61,31 +57,7 @@ void PrintReceipt(const Receipt& r) {
         "\n  Shipping:  ${:.2f}"
         "\n  ------------------"
         "\n  Subtoal:   ${:.2f}\n",
-        r.itemPrice, r.itemTax, 
-        r.shippingCost, r.totalCost);}
-
-double shippingfee(double weight);
-
-int main() {
-    // Rule for Price: Must be positive
-    auto priceRule = [](double v) {return v > 0.0;};
-
-    // Rule for Weight: Must be between 0 and 100 lbs
-    auto weightRule = [](double v) {return v > 0.0 && v <= 100.0;};
-
-    Receipt r;
-    r.itemPrice = getValidatedInput<double>("Enter Price: ", priceRule);
-    r.itemWeight = getValidatedInput<double>("Enter Weight: ", weightRule);
-
-    // You could even do an integer for quantity!
-    int qty = getValidatedInput<int>("Enter Quantity: ", [](int v) {return v > 0;});
-
-    constexpr double TAX_RATE = 0.34344;
-    r.itemTax = TAX_RATE * r.itemPrice;
-    r.shippingCost = shippingfee(r.itemWeight);
-    r.totalCost = (r.itemPrice + r.itemTax + r.shippingCost) * qty;
-
-    PrintReceipt(r);
+        r.itemPrice, r.itemTax, r.shippingCost, r.totalCost);
 }
 
 double shippingfee(double weight) {
@@ -95,4 +67,22 @@ double shippingfee(double weight) {
     if (weight < 16) return weight * ShippingConfig::RATE_UNDER_16KG;
     if (weight < 32) return weight * ShippingConfig::RATE_UNDER_32KG;
 
-    return weight * ShippingConfig::DEFAULT_RATE;}
+    return weight * ShippingConfig::DEFAULT_RATE;
+}
+
+int main() {
+    auto priceRule = [](double v) {return v > 0.0;};
+    auto weightRule = [](double v) {return v > 0.0 && v <= 100.0;};
+
+    Receipt r; /* You can Validate the Input with Lambdas Here */
+    r.itemPrice = getValidatedInput<double>("Enter Price: ", priceRule);
+    r.itemWeight = getValidatedInput<double>("Enter Weight: ", weightRule);
+    int qty = getValidatedInput<int>("Enter Quantity: ", [](int v) {return v > 0;});
+
+    constexpr double TAX_RATE = 0.34344;
+    r.itemTax = TAX_RATE * r.itemPrice;
+    r.shippingCost = shippingfee(r.itemWeight);
+    r.totalCost = (r.itemPrice + r.itemTax + r.shippingCost) * qty;
+
+    PrintReceipt(r);
+}
