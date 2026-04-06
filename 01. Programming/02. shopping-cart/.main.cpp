@@ -1,3 +1,8 @@
+/* 
+Name: Liru-3b | Title: Shopping Cart
+Description: Calculates Cost from std::cin.
+Loaded with Extra Functionality (Education).
+*/
 
 #include <string>
 #include <format>
@@ -10,16 +15,18 @@
 namespace Store {
 
     struct ShoppingReceipt {
-        double itemPrice, itemWeight, itemCount, ItemLevy, shippingCost, totalCost;};
+        double itemPrice, itemWeight, itemCount, itemTax, shippingCost, totalCost;};
+
 
     struct ShippingConfig {
-        static constexpr double  RATE_UNDER_1KG = 10.0;
-        static constexpr double  RATE_UNDER_2KG = 8.00;
-        static constexpr double  RATE_UNDER_5KG = 7.50;
+        static constexpr double RATE_UNDER_1KG  = 10.0;
+        static constexpr double RATE_UNDER_2KG  = 8.00;
+        static constexpr double RATE_UNDER_5KG  = 7.50;
         static constexpr double RATE_UNDER_10KG = 5.00;
         static constexpr double RATE_UNDER_15KG = 3.50;
         static constexpr double RATE_UNDER_20KG = 1.75;
         static constexpr double DEFAULT_RATE = 1.15;};
+
 
     double GetShippingCost(double itemWeight) {
         if (itemWeight <  1) return itemWeight * ShippingConfig::RATE_UNDER_1KG;
@@ -29,18 +36,20 @@ namespace Store {
         if (itemWeight < 15) return itemWeight * ShippingConfig::RATE_UNDER_15KG;
         if (itemWeight < 20) return itemWeight * ShippingConfig::RATE_UNDER_20KG;
 
-            return itemWeight * ShippingConfig::DEFAULT_RATE; }
+        return itemWeight * ShippingConfig::DEFAULT_RATE;}
+
 
     void PrintReceipt(const ShoppingReceipt& r) {
         std::cout << std::format(
-            "\n--- Invoice Summary ---"
+            "\n     - Invoice Summary -     "
             "\n  Item Price:     ${:.2f}"
             "\n  Item Count:     ${:.2f}"
             "\n  Item's Tax:     ${:.2f}"
             "\n  Shipping Cost:  ${:.2f}"
-            "\n  ------------------"
+            "\n-----------------------------"
             "\n  Total Cost:     ${:.2f}\n",
-            r.itemPrice, r.itemCount, r.ItemLevy, r.shippingCost, r.totalCost);}
+            r.itemPrice, r.itemCount, r.itemTax, r.shippingCost, r.totalCost);}
+
 
     template <typename Template, typename Predicate>
     Template ValidateInput(std::string_view prompt, Predicate isValid) {
@@ -79,22 +88,26 @@ namespace Store {
     /*End of Template*/}
 /*End of Namespace*/}
 
+
 int main() {
     using namespace Store;
+
+    std::cout << "Online Shopping Cart Calculator\n";
+    std::cout << "-------------------------------\n";
 
     auto priceRule = [](double v) {return v > 0.0; };
     auto countRule = [](int    v) {return v > 0;   };
     auto weightRule = [](double v) {return v > 0.0 && v <= 100.0;};
     
     ShoppingReceipt r;
-    r.itemPrice = ValidateInput<double>("Price: ", priceRule);
-    r.itemCount = ValidateInput<double>("Count: ", countRule);
-    r.itemWeight = ValidateInput<double>("Weight: ", weightRule);
+    r.itemPrice = ValidateInput<double>  ("Price: ", priceRule);
+    r.itemCount = ValidateInput<int>     ("Count: ", countRule);
+    r.itemWeight = ValidateInput<double> ("Weight: ", weightRule);
 
     constexpr double TAX_RATE = 0.04235;
-    r.ItemLevy = TAX_RATE * r.itemPrice;
+    r.itemTax = TAX_RATE * r.itemPrice;
     r.shippingCost = GetShippingCost(r.itemWeight);
-    r.totalCost = (r.itemPrice + r.ItemLevy + r.shippingCost) * r.itemCount;
+    r.totalCost = (r.itemPrice + r.itemTax + r.shippingCost) * r.itemCount;
 
     PrintReceipt(r); 
 }
