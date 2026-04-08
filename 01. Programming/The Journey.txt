@@ -6,7 +6,7 @@ D/M/Y: 4/4/2026
       Best for dynamic plugins, undo/redo systems, or multi-threaded schedulers.
 
    3. Merging literals ("A" "B") is faster than multiple cout calls, 
-      though negligibel in practice. For real performance, avoid std::endl:
+      though negligible in practice. For real performance, avoid std::endl:
       It forces a slow buffer flush. Use '\n' instead.
 
    4. Early Returns reduce cognitive load for you and the compiler.
@@ -27,3 +27,20 @@ How I learn:
    5. Create an Implementation Plan
    6. Create a Progression System, Artificially
    7. Implement the Progressions (10-15 files.)
+
+D/M/Y: 8/4/2026
+Losing Motivation. Before I began learning C++, I had some rudimentary knowledge of how programming worked.
+But this would most likely be my downfall, as the fundamentals now seem trivial to implement. 
+
+Even without the power of hindsight, I can tell that the essentials (no matter how boring) 
+are essential for a reason. 
+But even so...
+This coupled with the lack of structure in my learning. 
+What a recipe for disaster. 
+
+Moving forward:
+I need to create my own plan of learning, and curate my own sources of information.
+-> Longer deadlines (timeframe) for creating and finishing projects.
+-> Perhaps a "MinMax" of complexity. 
+
+
