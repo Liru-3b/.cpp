@@ -1,6 +1,7 @@
 
 #include <string> /*std::getline*/
 #include <vector>
+#include <utility> /*std::swap*/
 #include <format>
 #include <cstdio>
 #include <iostream>
@@ -34,7 +35,7 @@ int main() {
             && !line.empty()
     );
 
-/* Using Addition Operator */
+/* Using The Addition Operator */
     int a = 11, b = 9;
     int c = add(a, b);
     int d = add(a, b, c);
@@ -42,15 +43,31 @@ int main() {
     double m = 1.3, n = 0.7;
     double o = add(m, n);
 
-    std::cout 
-    <<  "\na = 11, b = 9"
-        "\nadd(a, b) = "    << c 
+    std::puts("\na = 11, b = 9");
+    std::printf("add(a, b) = %d\n", c);
 
-    <<  "\n\na = 11, b = 9, c = 20"
-        "\nadd(a, b, c) = " << d
+    std::puts("\na = 11, b = 9, c = 20");
+    std::printf("add(a, b, c) = %d\n", d);
 
-    <<  "\n\nm = 1.345, n = 0.655"
-        "\nadd(m, n) = "    << o;
+    std::puts("\nm = 1.345, n = 0.655");
+    std::printf("add(m, n) = %.1f", o);
+
+/* Swapping Values Using std::swap */
+/* Double Buffering (Game-dev) */
+struct FrameBuffer 
+{   uint32_t pixels[1920 * 1080];   };
+
+class DisplayManager {
+private:
+    FrameBuffer* frontBuffer; // Currently on screen
+    FrameBuffer* backBuffer;  // Being drawn on right now
+
+public:
+    void renderFrame() {
+        /* drawPlayer(backBuffer) */
+        std::swap(frontBuffer, backBuffer);
+        /* updateScreen(frontBuffer) */}
+};
 }
 
 /*Operator Overloading*/
@@ -67,7 +84,7 @@ Programming Language: C++
 4. Is it possible to take multiple inputs using std::getline?
 5. How to create a function and overload it?
 
-0. What is the purpose of Swapping values. Real-World use-case.
+0. What is the purpose of Swapping values (std::swap). Real-World use-case.
 1. When swapping, is there an instance where using a temporary value is better that using std::swap?
 2. What is typecasting (and various methods to implement it) 
 3. What are the various sizes of data types?
